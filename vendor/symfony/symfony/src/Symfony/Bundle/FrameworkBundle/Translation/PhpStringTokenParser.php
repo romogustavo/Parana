@@ -51,13 +51,13 @@ class PhpStringTokenParser
 {
     protected static $replacements = array(
         '\\' => '\\',
-        '$'  =>  '$',
-        'n'  => "\n",
-        'r'  => "\r",
-        't'  => "\t",
-        'f'  => "\f",
-        'v'  => "\v",
-        'e'  => "\x1B",
+        '$' =>  '$',
+        'n' => "\n",
+        'r' => "\r",
+        't' => "\t",
+        'f' => "\f",
+        'v' => "\v",
+        'e' => "\x1B",
     );
 
     /**
@@ -96,7 +96,7 @@ class PhpStringTokenParser
     public static function parseEscapeSequences($str, $quote)
     {
         if (null !== $quote) {
-            $str = str_replace('\\' . $quote, $quote, $str);
+            $str = str_replace('\\'.$quote, $quote, $str);
         }
 
         return preg_replace_callback(

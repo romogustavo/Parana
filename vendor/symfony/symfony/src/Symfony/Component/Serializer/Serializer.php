@@ -38,8 +38,8 @@ class Serializer implements SerializerInterface, NormalizerInterface, Denormaliz
 {
     protected $encoder;
     protected $decoder;
-    protected $normalizers       = array();
-    protected $normalizerCache   = array();
+    protected $normalizers = array();
+    protected $normalizerCache = array();
     protected $denormalizerCache = array();
 
     public function __construct(array $normalizers = array(), array $encoders = array())
@@ -164,7 +164,6 @@ class Serializer implements SerializerInterface, NormalizerInterface, Denormaliz
      */
     private function getNormalizer($data, $format)
     {
-
         $class = get_class($data);
         if (isset($this->normalizerCache[$class][$format])) {
             return $this->normalizerCache[$class][$format];

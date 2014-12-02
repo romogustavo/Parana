@@ -100,7 +100,7 @@ class PhpDumper extends Dumper
     public function dump(array $options = array())
     {
         $options = array_merge(array(
-            'class'      => 'ProjectServiceContainer',
+            'class' => 'ProjectServiceContainer',
             'base_class' => 'Container',
             'namespace' => '',
         ), $options);
@@ -202,7 +202,7 @@ class PhpDumper extends Dumper
         $code = '';
 
         foreach ($definitions as $definition) {
-            $code .= "\n" . $this->getProxyDumper()->getProxyCode($definition);
+            $code .= "\n".$this->getProxyDumper()->getProxyCode($definition);
         }
 
         return $code;
@@ -339,9 +339,9 @@ class PhpDumper extends Dumper
             throw new InvalidArgumentException(sprintf('"%s" is not a valid class name for the "%s" service.', $class, $id));
         }
 
-        $simple           = $this->isSimpleInstance($id, $definition);
+        $simple = $this->isSimpleInstance($id, $definition);
         $isProxyCandidate = $this->getProxyDumper()->isProxyCandidate($definition);
-        $instantiation    = '';
+        $instantiation = '';
 
         if (!$isProxyCandidate && ContainerInterface::SCOPE_CONTAINER === $definition->getScope()) {
             $instantiation = "\$this->services['$id'] = ".($simple ? '' : '$instance');
@@ -559,17 +559,17 @@ EOF;
         }
 
         if ($definition->isLazy()) {
-            $lazyInitialization    = '$lazyLoad = true';
+            $lazyInitialization = '$lazyLoad = true';
             $lazyInitializationDoc = "\n     * @param bool    \$lazyLoad whether to try lazy-loading the service with a proxy\n     *";
         } else {
-            $lazyInitialization    = '';
+            $lazyInitialization = '';
             $lazyInitializationDoc = '';
         }
 
         // with proxies, for 5.3.3 compatibility, the getter must be public to be accessible to the initializer
         $isProxyCandidate = $this->getProxyDumper()->isProxyCandidate($definition);
-        $visibility       = $isProxyCandidate ? 'public' : 'protected';
-        $code             = <<<EOF
+        $visibility = $isProxyCandidate ? 'public' : 'protected';
+        $code = <<<EOF
 
     /**
      * Gets the '$id' service.$doc
@@ -868,7 +868,7 @@ EOF;
             $code .= '            '.var_export($id, true).' => '.var_export('get'.$this->camelize($id).'Service', true).",\n";
         }
 
-        return $code . "        );\n";
+        return $code."        );\n";
     }
 
     /**
@@ -896,7 +896,7 @@ EOF;
             $code .= '            '.var_export($alias, true).' => '.var_export($id, true).",\n";
         }
 
-        return $code . "        );\n";
+        return $code."        );\n";
     }
 
     /**
@@ -1230,7 +1230,7 @@ EOF;
 
             return $this->getServiceCall((string) $value, $value);
         } elseif ($value instanceof Expression) {
-            return $this->getExpressionLanguage()->compile((string) $value, array('container'));
+            return $this->getExpressionLanguage()->compile((string) $value, array('this' => 'container'));
         } elseif ($value instanceof Parameter) {
             return $this->dumpParameter($value);
         } elseif (true === $interpolate && is_string($value)) {
@@ -1264,7 +1264,7 @@ EOF;
      */
     private function dumpLiteralClass($class)
     {
-         return '\\'.substr(str_replace('\\\\', '\\', $class), 1, -1);
+        return '\\'.substr(str_replace('\\\\', '\\', $class), 1, -1);
     }
 
     /**

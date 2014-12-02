@@ -61,9 +61,9 @@ class DoctrineTokenProvider implements TokenProviderInterface
     public function loadTokenBySeries($series)
     {
         $sql = 'SELECT class, username, value, lastUsed'
-            . ' FROM rememberme_token WHERE series=:series';
+            .' FROM rememberme_token WHERE series=:series';
         $paramValues = array('series' => $series);
-        $paramTypes  = array('series' => \PDO::PARAM_STR);
+        $paramTypes = array('series' => \PDO::PARAM_STR);
         $stmt = $this->conn->executeQuery($sql, $paramValues, $paramTypes);
         $row =  $stmt->fetch(\PDO::FETCH_ASSOC);
         if ($row) {
@@ -85,7 +85,7 @@ class DoctrineTokenProvider implements TokenProviderInterface
     {
         $sql = 'DELETE FROM rememberme_token WHERE series=:series';
         $paramValues = array('series' => $series);
-        $paramTypes  = array('series' => \PDO::PARAM_STR);
+        $paramTypes = array('series' => \PDO::PARAM_STR);
         $this->conn->executeUpdate($sql, $paramValues, $paramTypes);
     }
 
@@ -95,13 +95,13 @@ class DoctrineTokenProvider implements TokenProviderInterface
     public function updateToken($series, $tokenValue, \DateTime $lastUsed)
     {
         $sql = 'UPDATE rememberme_token SET value=:value, lastUsed=:lastUsed'
-            . ' WHERE series=:series';
-        $paramValues = array('value'    => $tokenValue,
+            .' WHERE series=:series';
+        $paramValues = array('value' => $tokenValue,
                              'lastUsed' => $lastUsed,
-                             'series'   => $series);
-        $paramTypes =  array('value'    => \PDO::PARAM_STR,
+                             'series' => $series,);
+        $paramTypes =  array('value' => \PDO::PARAM_STR,
                              'lastUsed' => DoctrineType::DATETIME,
-                             'series'   => \PDO::PARAM_STR);
+                             'series' => \PDO::PARAM_STR,);
         $updated = $this->conn->executeUpdate($sql, $paramValues, $paramTypes);
         if ($updated < 1) {
             throw new TokenNotFoundException('No token found.');
@@ -114,18 +114,18 @@ class DoctrineTokenProvider implements TokenProviderInterface
     public function createNewToken(PersistentTokenInterface $token)
     {
         $sql = 'INSERT INTO rememberme_token'
-            .        ' (class, username, series, value, lastUsed)'
-            . ' VALUES (:class, :username, :series, :value, :lastUsed)';
-        $paramValues = array('class'    => $token->getClass(),
+            .' (class, username, series, value, lastUsed)'
+            .' VALUES (:class, :username, :series, :value, :lastUsed)';
+        $paramValues = array('class' => $token->getClass(),
                              'username' => $token->getUsername(),
-                             'series'   => $token->getSeries(),
-                             'value'    => $token->getTokenValue(),
-                             'lastUsed' => $token->getLastUsed());
-        $paramTypes  = array('class'    => \PDO::PARAM_STR,
+                             'series' => $token->getSeries(),
+                             'value' => $token->getTokenValue(),
+                             'lastUsed' => $token->getLastUsed(),);
+        $paramTypes = array('class' => \PDO::PARAM_STR,
                              'username' => \PDO::PARAM_STR,
-                             'series'   => \PDO::PARAM_STR,
-                             'value'    => \PDO::PARAM_STR,
-                             'lastUsed' => DoctrineType::DATETIME);
+                             'series' => \PDO::PARAM_STR,
+                             'value' => \PDO::PARAM_STR,
+                             'lastUsed' => DoctrineType::DATETIME,);
         $this->conn->executeUpdate($sql, $paramValues, $paramTypes);
     }
 }
