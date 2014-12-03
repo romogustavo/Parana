@@ -1,6 +1,6 @@
 <?php
 
-/* WebProfilerBundle:Collector:logger.html.twig */
+/* @WebProfiler/Collector/logger.html.twig */
 class __TwigTemplate_bbd780384bbb8ee163b9e9770cf135fa5cad5bdfa0ce294f69cd8fb42fe248ab extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -427,7 +427,7 @@ class __TwigTemplate_bbd780384bbb8ee163b9e9770cf135fa5cad5bdfa0ce294f69cd8fb42fe
 
     public function getTemplateName()
     {
-        return "WebProfilerBundle:Collector:logger.html.twig";
+        return "@WebProfiler/Collector/logger.html.twig";
     }
 
     public function isTraitable()

@@ -7,3 +7,11 @@ App\UserBundle\Entity\User:
             type: integer
             generator:
                 strategy: AUTO
+    fields:
+        direccion:
+            type: string
+            length: '100'
+        sexo_id:
+            type: integer
+            column: sexo_id
+    lifecycleCallbacks: {  }

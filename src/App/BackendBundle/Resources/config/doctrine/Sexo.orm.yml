@@ -1,0 +1,15 @@
+App\BackendBundle\Entity\Sexo:
+    type: entity
+    table: null
+    repositoryClass: App\BackendBundle\Entity\SexoRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        genero:
+            type: string
+            length: '100'
+    lifecycleCallbacks: {  }

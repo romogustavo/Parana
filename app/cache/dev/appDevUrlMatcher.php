@@ -122,6 +122,66 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/sexo')) {
+            // sexo
+            if (rtrim($pathinfo, '/') === '/sexo') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'sexo');
+                }
+
+                return array (  '_controller' => 'App\\BackendBundle\\Controller\\SexoController::indexAction',  '_route' => 'sexo',);
+            }
+
+            // sexo_show
+            if (preg_match('#^/sexo/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'sexo_show')), array (  '_controller' => 'App\\BackendBundle\\Controller\\SexoController::showAction',));
+            }
+
+            // sexo_new
+            if ($pathinfo === '/sexo/new') {
+                return array (  '_controller' => 'App\\BackendBundle\\Controller\\SexoController::newAction',  '_route' => 'sexo_new',);
+            }
+
+            // sexo_create
+            if ($pathinfo === '/sexo/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_sexo_create;
+                }
+
+                return array (  '_controller' => 'App\\BackendBundle\\Controller\\SexoController::createAction',  '_route' => 'sexo_create',);
+            }
+            not_sexo_create:
+
+            // sexo_edit
+            if (preg_match('#^/sexo/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'sexo_edit')), array (  '_controller' => 'App\\BackendBundle\\Controller\\SexoController::editAction',));
+            }
+
+            // sexo_update
+            if (preg_match('#^/sexo/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                    $allow = array_merge($allow, array('POST', 'PUT'));
+                    goto not_sexo_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'sexo_update')), array (  '_controller' => 'App\\BackendBundle\\Controller\\SexoController::updateAction',));
+            }
+            not_sexo_update:
+
+            // sexo_delete
+            if (preg_match('#^/sexo/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                    $allow = array_merge($allow, array('POST', 'DELETE'));
+                    goto not_sexo_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'sexo_delete')), array (  '_controller' => 'App\\BackendBundle\\Controller\\SexoController::deleteAction',));
+            }
+            not_sexo_delete:
+
+        }
+
         if (0 === strpos($pathinfo, '/hello')) {
             // app_backend_homepage
             if (preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
@@ -296,6 +356,94 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'FOS\\UserBundle\\Controller\\ChangePasswordController::changePasswordAction',  '_route' => 'fos_user_change_password',);
         }
         not_fos_user_change_password:
+
+        if (0 === strpos($pathinfo, '/admin')) {
+            // sonata_admin_redirect
+            if (rtrim($pathinfo, '/') === '/admin') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'sonata_admin_redirect');
+                }
+
+                return array (  '_controller' => 'Symfony\\Bundle\\FrameworkBundle\\Controller\\RedirectController::redirectAction',  'route' => 'sonata_admin_dashboard',  'permanent' => 'true',  '_route' => 'sonata_admin_redirect',);
+            }
+
+            // sonata_admin_dashboard
+            if ($pathinfo === '/admin/dashboard') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CoreController::dashboardAction',  '_route' => 'sonata_admin_dashboard',);
+            }
+
+            if (0 === strpos($pathinfo, '/admin/core')) {
+                // sonata_admin_retrieve_form_element
+                if ($pathinfo === '/admin/core/get-form-field-element') {
+                    return array (  '_controller' => 'sonata.admin.controller.admin:retrieveFormFieldElementAction',  '_route' => 'sonata_admin_retrieve_form_element',);
+                }
+
+                // sonata_admin_append_form_element
+                if ($pathinfo === '/admin/core/append-form-field-element') {
+                    return array (  '_controller' => 'sonata.admin.controller.admin:appendFormFieldElementAction',  '_route' => 'sonata_admin_append_form_element',);
+                }
+
+                // sonata_admin_short_object_information
+                if (0 === strpos($pathinfo, '/admin/core/get-short-object-description') && preg_match('#^/admin/core/get\\-short\\-object\\-description(?:\\.(?P<_format>html|json))?$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'sonata_admin_short_object_information')), array (  '_controller' => 'sonata.admin.controller.admin:getShortObjectDescriptionAction',  '_format' => 'html',));
+                }
+
+                // sonata_admin_set_object_field_value
+                if ($pathinfo === '/admin/core/set-object-field-value') {
+                    return array (  '_controller' => 'sonata.admin.controller.admin:setObjectFieldValueAction',  '_route' => 'sonata_admin_set_object_field_value',);
+                }
+
+            }
+
+            // sonata_admin_search
+            if ($pathinfo === '/admin/search') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CoreController::searchAction',  '_route' => 'sonata_admin_search',);
+            }
+
+            // sonata_admin_retrieve_autocomplete_items
+            if ($pathinfo === '/admin/core/get-autocomplete-items') {
+                return array (  '_controller' => 'sonata.admin.controller.admin:retrieveAutocompleteItemsAction',  '_route' => 'sonata_admin_retrieve_autocomplete_items',);
+            }
+
+            if (0 === strpos($pathinfo, '/admin/app/backend/sexo')) {
+                // admin_app_backend_sexo_list
+                if ($pathinfo === '/admin/app/backend/sexo/list') {
+                    return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::listAction',  '_sonata_admin' => 'sonata.admin.post',  '_sonata_name' => 'admin_app_backend_sexo_list',  '_route' => 'admin_app_backend_sexo_list',);
+                }
+
+                // admin_app_backend_sexo_create
+                if ($pathinfo === '/admin/app/backend/sexo/create') {
+                    return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::createAction',  '_sonata_admin' => 'sonata.admin.post',  '_sonata_name' => 'admin_app_backend_sexo_create',  '_route' => 'admin_app_backend_sexo_create',);
+                }
+
+                // admin_app_backend_sexo_batch
+                if ($pathinfo === '/admin/app/backend/sexo/batch') {
+                    return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::batchAction',  '_sonata_admin' => 'sonata.admin.post',  '_sonata_name' => 'admin_app_backend_sexo_batch',  '_route' => 'admin_app_backend_sexo_batch',);
+                }
+
+                // admin_app_backend_sexo_edit
+                if (preg_match('#^/admin/app/backend/sexo/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_app_backend_sexo_edit')), array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::editAction',  '_sonata_admin' => 'sonata.admin.post',  '_sonata_name' => 'admin_app_backend_sexo_edit',));
+                }
+
+                // admin_app_backend_sexo_delete
+                if (preg_match('#^/admin/app/backend/sexo/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_app_backend_sexo_delete')), array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::deleteAction',  '_sonata_admin' => 'sonata.admin.post',  '_sonata_name' => 'admin_app_backend_sexo_delete',));
+                }
+
+                // admin_app_backend_sexo_show
+                if (preg_match('#^/admin/app/backend/sexo/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_app_backend_sexo_show')), array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::showAction',  '_sonata_admin' => 'sonata.admin.post',  '_sonata_name' => 'admin_app_backend_sexo_show',));
+                }
+
+                // admin_app_backend_sexo_export
+                if ($pathinfo === '/admin/app/backend/sexo/export') {
+                    return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::exportAction',  '_sonata_admin' => 'sonata.admin.post',  '_sonata_name' => 'admin_app_backend_sexo_export',  '_route' => 'admin_app_backend_sexo_export',);
+                }
+
+            }
+
+        }
 
         // _welcome
         if (rtrim($pathinfo, '/') === '') {
