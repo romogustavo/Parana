@@ -1,75 +1,28 @@
 <?php
-
 namespace App\UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * User
- */
 class User extends BaseUser
 {
-	/**
-     * @var integer
-     */
-    private $sexo_id;
+    protected $name;
 
-    /**
-     * @var string
-     */
-    private $direccion;
-
-    public function __construct()
+    // ...
+    /*public function __construct()
     {
         echo "Entro en User";
         //exit();
         parent::__construct();
         // your own logic
-    }
-    
-    /**
-     * Get sexo_id
-     *
-     * @return integer 
-     */
-    public function getSexoId()
+    }*/
+    public function getName()
     {
-        return $this->sexo_id;
+        return $this->name;
     }
-
-    /**
-     * Set sexo_id
-     *
-     * @param string $sexo_id
-     * @return SexoId
-     */
-    public function setSexoId($sexo_id)
+    public function setName($name)
     {
-        $this->sexo_id = $sexo_id;
-        return $this;
+        $this->name = $name; 
     }
-
-    /**
-     * Set direccion
-     *
-     * @param string $direccion
-     * @return Direccion
-     */
-    public function setDireccion($direccion)
-    {
-        $this->direccion = $direccion;
-
-        return $this;
-    }
-
-    /**
-     * Get direccion
-     *
-     * @return string 
-     */
-    public function getDireccion()
-    {
-        return $this->direccion;
-    }
-
 }

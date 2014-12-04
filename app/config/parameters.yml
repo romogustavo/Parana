@@ -10,7 +10,7 @@ parameters:
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
-    locale: es_AR
+    locale: es
     secret: 12c5a95ab612b44d826294bf303ff49a718c7582
     debug_toolbar: true
     debug_redirects: false
