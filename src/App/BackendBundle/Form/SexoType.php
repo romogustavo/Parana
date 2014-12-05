@@ -16,6 +16,10 @@ class SexoType extends AbstractType
     {
         $builder
             ->add('genero')
+            ->add('id_user_created_at')
+            ->add('created_at')
+            ->add('id_user_updated_at')
+            ->add('updated_at')
         ;
     }
     

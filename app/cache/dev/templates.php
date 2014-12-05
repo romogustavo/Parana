@@ -113,7 +113,6 @@
   'AppUserBundle:Registration:register.html.twig' => 'D:\\xampp\\htdocs\\parana\\src\\App\\UserBundle/Resources/views/Registration/register.html.twig',
   'AppUserBundle:Registration:register_content.html.twig' => 'D:\\xampp\\htdocs\\parana\\src\\App\\UserBundle/Resources/views/Registration/register_content.html.twig',
   'AppUserBundle:Security:login.html.twig' => 'D:\\xampp\\htdocs\\parana\\src\\App\\UserBundle/Resources/views/Security/login.html.twig',
-  'AppBackendBundle:Default:index.html - copia.twig' => 'D:\\xampp\\htdocs\\parana\\src\\App\\BackendBundle/Resources/views/Default/index.html - copia.twig',
   'AppBackendBundle:Default:index.html.twig' => 'D:\\xampp\\htdocs\\parana\\src\\App\\BackendBundle/Resources/views/Default/index.html.twig',
   'AppBackendBundle::layout.html.twig' => 'D:\\xampp\\htdocs\\parana\\src\\App\\BackendBundle/Resources/views/layout.html.twig',
   'AppBackendBundle:Sexo:edit.html.twig' => 'D:\\xampp\\htdocs\\parana\\src\\App\\BackendBundle/Resources/views/Sexo/edit.html.twig',

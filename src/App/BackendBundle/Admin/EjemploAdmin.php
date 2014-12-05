@@ -10,17 +10,17 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 class PostAdmin extends Admin
 {
-    // Fields to be shown on create/edit forms
+    // Los campos que se muestran en crear/editar forms
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
             ->add('title', 'text', array('label' => 'Post Title'))
             ->add('author', 'entity', array('class' => 'Acme\DemoBundle\Entity\User'))
-            ->add('body') //if no type is specified, SonataAdminBundle tries to guess it
+            ->add('body') //si no se especifica ningún tipo, SonataAdminBundle intenta adivinarlo
         ;
     }
 
-    // Fields to be shown on filter forms
+    // Los campos que se muestran en filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
@@ -29,7 +29,7 @@ class PostAdmin extends Admin
         ;
     }
 
-    // Fields to be shown on lists
+    // Los campos que se muestran en lists
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper

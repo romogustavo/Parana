@@ -14,7 +14,12 @@ class SexoAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('genero')
+            ->add('genero', 'text', array('label' => 'Genero'))
+            ->add('id_user_created_at')
+            ->add('created_at')
+            ->add('id_user_updated_at')
+            ->add('updated_at')
+            //->add('body') //si no se especifica ningún tipo, SonataAdminBundle intenta adivinarlo
         ;
     }
 
@@ -23,6 +28,10 @@ class SexoAdmin extends Admin
     {
         $datagridMapper
             ->add('genero')
+            ->add('id_user_created_at')
+            ->add('created_at')
+            ->add('id_user_updated_at')
+            ->add('updated_at')
         ;
     }
 
@@ -31,6 +40,35 @@ class SexoAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('genero')
+            ->add('id_user_created_at')
+            ->add('created_at')
+            ->add('id_user_updated_at')
+            ->add('updated_at')
         ;
+    }
+
+         /*
+     * Método que se ejecuta antes de realizar una inserción.
+     * Recibe como parámetro una entidad; en este caso de tipo Sexo
+     * con los valores del formulario.
+     * 
+     */
+ 
+    public function prePersist($sexo) {
+        $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
+        $sexo->setIdUserCreatedAt($user->getId());
+        $sexo->setCreatedAt(new \DateTime());
+    }
+
+     /*
+     * Método que se ejecuta antes de realizar una actualización.
+     * Recibe como parámetro una entidad; en este caso de tipo Sexo
+     * con los valores del formulario.
+     * 
+     */
+    public function preUpdate($sexo) {
+        $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
+        $sexo->setIdUserUpdatedAt($user->getId());
+        $sexo->setUpdatedAt(new \DateTime());
     }
 }

@@ -12,4 +12,14 @@ App\BackendBundle\Entity\Sexo:
         genero:
             type: string
             length: '100'
+        id_user_created_at:
+            type: integer
+        created_at:
+            type: datetime
+            nullable: true
+        id_user_updated_at:
+            type: integer
+        updated_at:
+            type: datetime
+            nullable: true
     lifecycleCallbacks: {  }
