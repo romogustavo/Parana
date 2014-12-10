@@ -47,7 +47,7 @@ class SexoAdmin extends Admin
         ;
     }
 
-         /*
+     /*
      * Método que se ejecuta antes de realizar una inserción.
      * Recibe como parámetro una entidad; en este caso de tipo Sexo
      * con los valores del formulario.

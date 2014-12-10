@@ -40,11 +40,6 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 
-### Symfony2 ###
-#app/logs/
-#app/cache/
-# Ver si la configuracion hay que sacar
-
 #Si por error has subido al repositorio algún archivo o directorio que no debería estar, puedes eliminarlo con el siguiente comando, que mantiene la copia local en tu ordenador de ese archivo o directorio:
 #git rm --cached nombre-del-archivo-o-directorio
 
@@ -55,7 +50,7 @@ app/config/parameters.ini
 app/config/parameters.yml
 app/cache/*
 app/logs/*
-vendor/*
+#vendor/*
 web/bundles/*
 web/css/*
 web/js/*
