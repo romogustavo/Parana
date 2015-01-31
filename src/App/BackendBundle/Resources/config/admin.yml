@@ -1,8 +1,8 @@
 services:
-    sonata.admin.post:
+    sonata.admin.sexo:
         class: App\BackendBundle\Admin\SexoAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Sexo" }
+            - { name: sonata.admin, manager_type: orm, group: "Contenido", label: "Genero" }
         arguments:
             - ~
             - App\BackendBundle\Entity\Sexo

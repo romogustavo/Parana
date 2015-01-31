@@ -5,3 +5,7 @@ app_backend_sexo:
 app_backend_homepage:
     path:     /hello/{name}
     defaults: { _controller: AppBackendBundle:Default:index }
+
+sonata_user:
+    resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
+    prefix: /admin

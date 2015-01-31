@@ -1,0 +1,25 @@
+sonata_admin:
+    security:
+        handler: sonata.admin.security.handler.role
+
+    title:       Sistema Parana
+    title_logo:  /bundles/appbackend/images/linux.png
+
+    templates:
+        # default global templates
+        layout:  SonataAdminBundle::standard_layout.html.twig
+        ajax:    SonataAdminBundle::ajax_layout.html.twig
+
+        # default actions templates, should extend a global templates
+        list:    SonataAdminBundle:CRUD:list.html.twig
+        show:    SonataAdminBundle:CRUD:show.html.twig
+        edit:    SonataAdminBundle:CRUD:edit.html.twig
+
+        dashboard: SonataAdminBundle:Core:dashboard.html.twig
+
+    dashboard:
+        blocks:
+            # display a dashboard block
+            - { position: left, type: sonata.admin.block.admin_list }
+            - { position: center, type: sonata.timeline.block.timeline, settings: { context: SONATA_ADMIN, max_per_page: 25 }}
+    persist_filters:      false     # set to true to persist filter settings per admin module in the user's session
