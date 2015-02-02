@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Symfony\\Cmf\\Component\\Routing\\' => array($vendorDir . '/symfony-cmf/routing'),
     'Symfony\\Cmf\\Bundle\\RoutingBundle\\' => array($vendorDir . '/symfony-cmf/routing-bundle'),
     'Symfony\\Bundle\\SwiftmailerBundle\\' => array($vendorDir . '/symfony/swiftmailer-bundle'),
     'Symfony\\Bundle\\MonologBundle\\' => array($vendorDir . '/symfony/monolog-bundle'),
@@ -40,6 +39,7 @@ return array(
     'Google\\Authenticator\\Tests\\' => array($vendorDir . '/sonata-project/google-authenticator/tests'),
     'Google\\Authenticator\\' => array($vendorDir . '/sonata-project/google-authenticator/lib'),
     'FOS\\JsRoutingBundle\\' => array($vendorDir . '/friendsofsymfony/jsrouting-bundle'),
+    'Doctrine\\Bundle\\PHPCRBundle\\' => array($vendorDir . '/doctrine/phpcr-bundle'),
     'Doctrine\\Bundle\\DoctrineBundle\\' => array($vendorDir . '/doctrine/doctrine-bundle'),
     'Cocur\\Slugify\\' => array($vendorDir . '/cocur/slugify/src'),
 );

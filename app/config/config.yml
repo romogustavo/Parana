@@ -16,6 +16,7 @@ imports:
     - { resource: ../bundles/sonata_notification.yml }
     - { resource: ../bundles/jms_serializer.yml }
     - { resource: ../bundles/sonata_timeline.yml }
+    - { resource: ../bundles/sonata_page.yml }
 
 framework:
     #esi:             ~
@@ -90,6 +91,8 @@ doctrine:
 #                    ApplicationSonataNotificationBundle: ~
 #                    SonataMediaBundle: ~
 #                    ApplicationSonataMediaBundle: ~
+#                    ApplicationSonataPageBundle: ~
+#                    SonataPageBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:

@@ -1,0 +1,8 @@
+4002d4,::1,POST,http://localhost:5000/app_dev.php/admin/sonata/user/user/2/edit?uniqid=s54cf82ddd37a2,1422885920,
+bd8cef,::1,GET,http://localhost:5000/app_dev.php/admin/sonata/user/user/2/edit,1422885933,
+3ed795,::1,GET,http://localhost:5000/app_dev.php/admin/sonata/user/group/list,1422885966,
+b8d7cf,::1,GET,http://localhost:5000/app_dev.php/admin/sonata/user/group/1/edit,1422885975,
+493e01,::1,POST,http://localhost:5000/app_dev.php/admin/sonata/user/group/1/edit?uniqid=s54cf8454f10a8,1422886108,
+8e16cd,::1,GET,http://localhost:5000/app_dev.php/admin/sonata/user/group/1/edit,1422886111,
+7ce891,::1,GET,http://localhost:5000/app_dev.php/admin/sonata/user/user/list,1422886130,
+91da47,::1,GET,http://localhost:5000/app_dev.php/admin/sonata/user/user/2/edit,1422886137,
