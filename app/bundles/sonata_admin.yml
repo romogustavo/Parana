@@ -21,5 +21,15 @@ sonata_admin:
         blocks:
             # display a dashboard block
             - { position: left, type: sonata.admin.block.admin_list }
-            - { position: center, type: sonata.timeline.block.timeline, settings: { context: SONATA_ADMIN, max_per_page: 25 }}
+            - { position: right, type: sonata.timeline.block.timeline, settings: { context: SONATA_ADMIN, max_per_page: 25 }}
+            - { position: left, type: sonata.block.service.text, settings: { content: '<h2>Welcome to the Sonata Admin</h2><p>This is a <code>sonata.block.service.text</code> from the Block Bundle, you can create and add new block in these area by configuring the <code>sonata_admin</code> section.</p> <br /> For instance, here a RSS feed parser (<code>sonata.block.service.rss</code>):' }}
+            - { position: right, type: sonata.block.service.rss, settings: { title: Sonata Project's Feeds, url: http://sonata-project.org/blog/archive.rss }}
+
+#            - { position: right, type: sonata.user.block.account }
+#            - { position: right, type: sonata.block.service.text }
+#            - { position: right, type: sonata.block.service.rss }
+#            - { position: right, type: sonata.media.block.media }
+#            - { position: right, type: sonata.media.block.gallery }
+#            - { position: right, type: sonata.media.block.feature_media }
+
     persist_filters:      false     # set to true to persist filter settings per admin module in the user's session

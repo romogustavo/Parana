@@ -86,27 +86,38 @@ class __TwigTemplate_85be25e00cd54006611937371e602cd55235ab2ca32505a74ad34d755b6
                         echo "                                ";
                         echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), $context["field_name"], array(), "array"), 'row');
                         echo "
+                            <em>";
+                        // line 22
+                        echo "0";
+                        echo "</em>
                             ";
                     }
-                    // line 23
-                    echo "                        ";
+                    // line 24
+                    echo "                            <em>";
+                    echo twig_escape_filter($this->env, $context["field_name"], "html", null, true);
+                    echo "</em>
+                        ";
                     $context['_iterated'] = true;
                 }
                 if (!$context['_iterated']) {
-                    // line 24
+                    // line 26
                     echo "                            <em>";
                     echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("message_form_group_empty", array(), "SonataAdminBundle"), "html", null, true);
                     echo "</em>
+                            <pre>";
+                    // line 27
+                    echo twig_escape_filter($this->env, $context["code"], "html", null, true);
+                    echo "</pre>
                         ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['field_name'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 26
+                // line 29
                 echo "                    </div>
                 </div>
                 ";
-                // line 29
+                // line 32
                 echo "            </div>
         </div>
     ";
@@ -114,7 +125,7 @@ class __TwigTemplate_85be25e00cd54006611937371e602cd55235ab2ca32505a74ad34d755b6
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['code'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 32
+            // line 35
             echo "    ";
             if ((isset($context["has_tab"]) ? $context["has_tab"] : $this->getContext($context, "has_tab"))) {
                 echo "</div>";
@@ -140,6 +151,6 @@ class __TwigTemplate_85be25e00cd54006611937371e602cd55235ab2ca32505a74ad34d755b6
 
     public function getDebugInfo()
     {
-        return array (  118 => 32,  110 => 29,  106 => 26,  97 => 24,  92 => 23,  86 => 21,  83 => 20,  78 => 19,  75 => 18,  69 => 16,  67 => 15,  63 => 13,  57 => 9,  52 => 6,  48 => 5,  45 => 4,  40 => 3,  35 => 2,  21 => 1,);
+        return array (  129 => 35,  121 => 32,  117 => 29,  109 => 27,  104 => 26,  96 => 24,  91 => 22,  86 => 21,  83 => 20,  78 => 19,  75 => 18,  69 => 16,  67 => 15,  63 => 13,  57 => 9,  52 => 6,  48 => 5,  45 => 4,  40 => 3,  35 => 2,  21 => 1,);
     }
 }
