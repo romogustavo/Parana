@@ -1,6 +1,6 @@
 <?php
 
-/* SonataUserBundle:Admin:Field/impersonating.html.twig */
+/* SonataUserBundle:Admin/Field:impersonating.html.twig */
 class __TwigTemplate_09659fa192abeeaed5285f2c109f409b4d8a152f416968c564f204c373d12592 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -56,7 +56,7 @@ class __TwigTemplate_09659fa192abeeaed5285f2c109f409b4d8a152f416968c564f204c373d
 
     public function getTemplateName()
     {
-        return "SonataUserBundle:Admin:Field/impersonating.html.twig";
+        return "SonataUserBundle:Admin/Field:impersonating.html.twig";
     }
 
     public function isTraitable()

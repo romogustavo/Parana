@@ -321,13 +321,14 @@
     <parameter key="security.role_hierarchy.roles" type="collection">
       <parameter key="ROLE_ADMIN" type="collection">
         <parameter>ROLE_USER</parameter>
+        <parameter>ROLE_SONATA_ADMIN</parameter>
       </parameter>
       <parameter key="ROLE_SUPER_ADMIN" type="collection">
-        <parameter>ROLE_SUPER_ADMIN</parameter>
+        <parameter>ROLE_ADMIN</parameter>
+        <parameter>ROLE_ALLOWED_TO_SWITCH</parameter>
       </parameter>
       <parameter key="SONATA" type="collection">
         <parameter>ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT</parameter>
-        <parameter>ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT</parameter>
       </parameter>
     </parameter>
     <parameter key="security.acl.permission_granting_strategy.class">Symfony\Component\Security\Acl\Domain\PermissionGrantingStrategy</parameter>
@@ -4646,7 +4647,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>54cfe590d37a2</argument>
+            <argument>54e29cc771b9c</argument>
           </service>
         </argument>
         <argument type="service">
@@ -4660,7 +4661,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>54cfe590d37a2</argument>
+            <argument>54e29cc771b9c</argument>
           </service>
         </argument>
       </argument>
@@ -4731,13 +4732,14 @@
       <argument type="collection">
         <argument key="ROLE_ADMIN" type="collection">
           <argument>ROLE_USER</argument>
+          <argument>ROLE_SONATA_ADMIN</argument>
         </argument>
         <argument key="ROLE_SUPER_ADMIN" type="collection">
-          <argument>ROLE_SUPER_ADMIN</argument>
+          <argument>ROLE_ADMIN</argument>
+          <argument>ROLE_ALLOWED_TO_SWITCH</argument>
         </argument>
         <argument key="SONATA" type="collection">
           <argument>ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT</argument>
-          <argument>ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT</argument>
         </argument>
       </argument>
     </service>
@@ -4857,17 +4859,6 @@
       <call method="add">
         <argument type="service">
           <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-            <argument>^/.*</argument>
-          </service>
-        </argument>
-        <argument type="collection">
-          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
-        </argument>
-        <argument>null</argument>
-      </call>
-      <call method="add">
-        <argument type="service">
-          <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
             <argument>^/admin/</argument>
           </service>
         </argument>
@@ -4877,7 +4868,19 @@
         </argument>
         <argument>null</argument>
       </call>
+      <call method="add">
+        <argument type="service">
+          <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+            <argument>^/.*</argument>
+          </service>
+        </argument>
+        <argument type="collection">
+          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
     </service>
+    <service id="security.logout.handler.session" class="Symfony\Component\Security\Http\Logout\SessionLogoutHandler" public="false"/>
     <service id="security.access_listener" class="Symfony\Component\Security\Http\Firewall\AccessListener" public="false">
       <tag name="monolog.logger" channel="security"/>
       <argument type="service" id="security.context"/>
@@ -4901,7 +4904,7 @@
       </call>
       <call method="registerListener">
         <argument>main</argument>
-        <argument>/admin/logout</argument>
+        <argument>/logout</argument>
         <argument>logout</argument>
         <argument>_csrf_token</argument>
         <argument>null</argument>
@@ -4935,7 +4938,7 @@
             <argument type="service">
               <service class="Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler" public="false">
                 <argument type="service" id="security.http_utils"/>
-                <argument>/admin/login</argument>
+                <argument>/</argument>
               </service>
             </argument>
             <argument type="collection">
@@ -4943,6 +4946,9 @@
               <argument key="intention">logout</argument>
               <argument key="logout_path">/admin/logout</argument>
             </argument>
+            <call method="addHandler">
+              <argument type="service" id="security.logout.handler.session"/>
+            </call>
           </service>
         </argument>
         <argument type="service">
@@ -4958,10 +4964,10 @@
                 <argument type="service" id="security.http_utils"/>
                 <argument type="collection">
                   <argument key="login_path">/admin/login</argument>
-                  <argument key="use_referer">true</argument>
                   <argument key="default_target_path">/admin/dashboard</argument>
                   <argument key="always_use_default_target_path">false</argument>
                   <argument key="target_path_parameter">_target_path</argument>
+                  <argument key="use_referer">false</argument>
                 </argument>
                 <call method="setProviderKey">
                   <argument>admin</argument>
@@ -4999,7 +5005,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>54cfe590d37a2</argument>
+            <argument>54e29cc771b9c</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -5036,14 +5042,17 @@
             <argument type="service">
               <service class="Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler" public="false">
                 <argument type="service" id="security.http_utils"/>
-                <argument>/admin/login</argument>
+                <argument>/</argument>
               </service>
             </argument>
             <argument type="collection">
               <argument key="csrf_parameter">_csrf_token</argument>
               <argument key="intention">logout</argument>
-              <argument key="logout_path">/admin/logout</argument>
+              <argument key="logout_path">/logout</argument>
             </argument>
+            <call method="addHandler">
+              <argument type="service" id="security.logout.handler.session"/>
+            </call>
           </service>
         </argument>
         <argument type="service">
@@ -5058,11 +5067,11 @@
               <service class="Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler" public="false">
                 <argument type="service" id="security.http_utils"/>
                 <argument type="collection">
-                  <argument key="login_path">/admin/login</argument>
-                  <argument key="use_referer">true</argument>
-                  <argument key="default_target_path">/admin/dashboard</argument>
+                  <argument key="login_path">/login</argument>
                   <argument key="always_use_default_target_path">false</argument>
+                  <argument key="default_target_path">/</argument>
                   <argument key="target_path_parameter">_target_path</argument>
+                  <argument key="use_referer">false</argument>
                 </argument>
                 <call method="setProviderKey">
                   <argument>main</argument>
@@ -5074,7 +5083,7 @@
                 <argument type="service" id="http_kernel"/>
                 <argument type="service" id="security.http_utils"/>
                 <argument type="collection">
-                  <argument key="login_path">/admin/login</argument>
+                  <argument key="login_path">/login</argument>
                   <argument key="failure_path">null</argument>
                   <argument key="failure_forward">false</argument>
                   <argument key="failure_path_parameter">_failure_path</argument>
@@ -5084,7 +5093,7 @@
             </argument>
             <argument type="collection">
               <argument key="use_forward">false</argument>
-              <argument key="check_path">/admin/login_check</argument>
+              <argument key="check_path">/login_check</argument>
               <argument key="require_previous_session">true</argument>
               <argument key="username_parameter">_username</argument>
               <argument key="password_parameter">_password</argument>
@@ -5100,7 +5109,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>54cfe590d37a2</argument>
+            <argument>54e29cc771b9c</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -5116,7 +5125,7 @@
             <service class="Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint" public="false">
               <argument type="service" id="http_kernel"/>
               <argument type="service" id="security.http_utils"/>
-              <argument>/admin/login</argument>
+              <argument>/login</argument>
               <argument>false</argument>
             </service>
           </argument>
@@ -7621,13 +7630,14 @@
       <argument type="collection">
         <argument key="ROLE_ADMIN" type="collection">
           <argument>ROLE_USER</argument>
+          <argument>ROLE_SONATA_ADMIN</argument>
         </argument>
         <argument key="ROLE_SUPER_ADMIN" type="collection">
-          <argument>ROLE_SUPER_ADMIN</argument>
+          <argument>ROLE_ADMIN</argument>
+          <argument>ROLE_ALLOWED_TO_SWITCH</argument>
         </argument>
         <argument key="SONATA" type="collection">
           <argument>ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT</argument>
-          <argument>ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT</argument>
         </argument>
       </argument>
     </service>
@@ -12324,7 +12334,7 @@
       <argument type="service" id="request"/>
       <argument type="service" id="fos_user.user_manager"/>
     </service>
-    <service id="fos_user.group_manager" class="FOS\UserBundle\Doctrine\GroupManager">
+    <service id="fos_user.group_manager" class="Sonata\UserBundle\Entity\GroupManager">
       <argument type="service" id="fos_user.entity_manager"/>
       <argument>Application\Sonata\UserBundle\Entity\Group</argument>
     </service>
@@ -12332,10 +12342,6 @@
       <argument type="service" id="fos_user.group.form"/>
       <argument type="service" id="request"/>
       <argument type="service" id="fos_user.group_manager"/>
-    </service>
-    <service id="sonata.user.group_manager" class="Sonata\UserBundle\Entity\GroupManager">
-      <argument type="service" id="fos_user.entity_manager"/>
-      <argument>Application\Sonata\UserBundle\Entity\Group</argument>
     </service>
     <service id="sonata.user.profile.form.handler" class="Sonata\UserBundle\Form\Handler\ProfileFormHandler" scope="request">
       <argument type="service" id="sonata.user.profile.form"/>
@@ -12629,6 +12635,7 @@
     <service id="fos_user.util.username_canonicalizer" alias="fos_user.util.email_canonicalizer"/>
     <service id="fos_user.change_password.form.handler" alias="fos_user.change_password.form.handler.default"/>
     <service id="sonata.user.user_manager" alias="fos_user.user_manager"/>
+    <service id="sonata.user.group_manager" alias="fos_user.group_manager"/>
     <service id="sonata.user.authentication.form" alias="fos_user.profile.form"/>
     <service id="sonata.user.authentication.form_handler" alias="fos_user.profile.form.handler"/>
     <service id="sonata.seo.page" alias="sonata.seo.page.default"/>

@@ -236,6 +236,7 @@ class appDevDebugProjectContainer extends Container
             'security.firewall.map.context.dev' => 'getSecurity_Firewall_Map_Context_DevService',
             'security.firewall.map.context.main' => 'getSecurity_Firewall_Map_Context_MainService',
             'security.http_utils' => 'getSecurity_HttpUtilsService',
+            'security.logout.handler.session' => 'getSecurity_Logout_Handler_SessionService',
             'security.rememberme.response_listener' => 'getSecurity_Rememberme_ResponseListenerService',
             'security.role_hierarchy' => 'getSecurity_RoleHierarchyService',
             'security.secure_random' => 'getSecurity_SecureRandomService',
@@ -538,7 +539,6 @@ class appDevDebugProjectContainer extends Container
             'sonata.user.editable_role_builder' => 'getSonata_User_EditableRoleBuilderService',
             'sonata.user.form.gender_list' => 'getSonata_User_Form_GenderListService',
             'sonata.user.form.type.security_roles' => 'getSonata_User_Form_Type_SecurityRolesService',
-            'sonata.user.group_manager' => 'getSonata_User_GroupManagerService',
             'sonata.user.manager.user' => 'getSonata_User_Manager_UserService',
             'sonata.user.profile.form' => 'getSonata_User_Profile_FormService',
             'sonata.user.profile.form.handler' => 'getSonata_User_Profile_Form_HandlerService',
@@ -661,6 +661,7 @@ class appDevDebugProjectContainer extends Container
             'sonata.seo.page' => 'sonata.seo.page.default',
             'sonata.user.authentication.form' => 'fos_user.profile.form',
             'sonata.user.authentication.form_handler' => 'fos_user.profile.form.handler',
+            'sonata.user.group_manager' => 'fos_user.group_manager',
             'sonata.user.user_manager' => 'fos_user.user_manager',
             'spy_timeline.action_manager' => 'spy_timeline.action_manager.orm',
             'spy_timeline.driver.object_manager' => 'doctrine.orm.default_entity_manager',
@@ -1931,11 +1932,11 @@ class appDevDebugProjectContainer extends Container
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * @return \FOS\UserBundle\Doctrine\GroupManager A FOS\UserBundle\Doctrine\GroupManager instance.
+     * @return \Sonata\UserBundle\Entity\GroupManager A Sonata\UserBundle\Entity\GroupManager instance.
      */
     protected function getFosUser_GroupManagerService()
     {
-        return $this->services['fos_user.group_manager'] = new \FOS\UserBundle\Doctrine\GroupManager($this->get('fos_user.entity_manager'), 'Application\\Sonata\\UserBundle\\Entity\\Group');
+        return $this->services['fos_user.group_manager'] = new \Sonata\UserBundle\Entity\GroupManager($this->get('fos_user.entity_manager'), 'Application\\Sonata\\UserBundle\\Entity\\Group');
     }
 
     /**
@@ -3305,10 +3306,13 @@ class appDevDebugProjectContainer extends Container
         $c = $this->get('http_kernel');
         $d = $this->get('monolog.logger.security', ContainerInterface::NULL_ON_INVALID_REFERENCE);
 
-        $e = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($a, array('login_path' => '/admin/login', 'use_referer' => true, 'default_target_path' => '/admin/dashboard', 'always_use_default_target_path' => false, 'target_path_parameter' => '_target_path'));
-        $e->setProviderKey('admin');
+        $e = new \Symfony\Component\Security\Http\Firewall\LogoutListener($b, $a, new \Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler($a, '/'), array('csrf_parameter' => '_csrf_token', 'intention' => 'logout', 'logout_path' => '/admin/logout'));
+        $e->addHandler($this->get('security.logout.handler.session'));
 
-        return $this->services['security.firewall.map.context.admin'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => $this->get('security.context_listener.0'), 2 => new \Symfony\Component\Security\Http\Firewall\LogoutListener($b, $a, new \Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler($a, '/admin/login'), array('csrf_parameter' => '_csrf_token', 'intention' => 'logout', 'logout_path' => '/admin/logout')), 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $this->get('security.authentication.manager'), $this->get('security.authentication.session_strategy'), $a, 'admin', $e, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($c, $a, array('login_path' => '/admin/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $d), array('use_forward' => false, 'check_path' => '/admin/login_check', 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $d, $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE), NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '54cfe590d37a2', $d), 5 => $this->get('security.access_listener')), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $a, 'admin', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($c, $a, '/admin/login', false), NULL, NULL, $d));
+        $f = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($a, array('login_path' => '/admin/login', 'default_target_path' => '/admin/dashboard', 'always_use_default_target_path' => false, 'target_path_parameter' => '_target_path', 'use_referer' => false));
+        $f->setProviderKey('admin');
+
+        return $this->services['security.firewall.map.context.admin'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => $this->get('security.context_listener.0'), 2 => $e, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $this->get('security.authentication.manager'), $this->get('security.authentication.session_strategy'), $a, 'admin', $f, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($c, $a, array('login_path' => '/admin/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $d), array('use_forward' => false, 'check_path' => '/admin/login_check', 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $d, $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE), NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '54e29cc771b9c', $d), 5 => $this->get('security.access_listener')), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $a, 'admin', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($c, $a, '/admin/login', false), NULL, NULL, $d));
     }
 
     /**
@@ -3339,10 +3343,13 @@ class appDevDebugProjectContainer extends Container
         $c = $this->get('http_kernel');
         $d = $this->get('monolog.logger.security', ContainerInterface::NULL_ON_INVALID_REFERENCE);
 
-        $e = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($a, array('login_path' => '/admin/login', 'use_referer' => true, 'default_target_path' => '/admin/dashboard', 'always_use_default_target_path' => false, 'target_path_parameter' => '_target_path'));
-        $e->setProviderKey('main');
+        $e = new \Symfony\Component\Security\Http\Firewall\LogoutListener($b, $a, new \Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler($a, '/'), array('csrf_parameter' => '_csrf_token', 'intention' => 'logout', 'logout_path' => '/logout'));
+        $e->addHandler($this->get('security.logout.handler.session'));
 
-        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => $this->get('security.context_listener.0'), 2 => new \Symfony\Component\Security\Http\Firewall\LogoutListener($b, $a, new \Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler($a, '/admin/login'), array('csrf_parameter' => '_csrf_token', 'intention' => 'logout', 'logout_path' => '/admin/logout')), 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $this->get('security.authentication.manager'), $this->get('security.authentication.session_strategy'), $a, 'main', $e, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($c, $a, array('login_path' => '/admin/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $d), array('use_forward' => false, 'check_path' => '/admin/login_check', 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $d, $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE), NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '54cfe590d37a2', $d), 5 => $this->get('security.access_listener')), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $a, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($c, $a, '/admin/login', false), NULL, NULL, $d));
+        $f = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($a, array('login_path' => '/login', 'always_use_default_target_path' => false, 'default_target_path' => '/', 'target_path_parameter' => '_target_path', 'use_referer' => false));
+        $f->setProviderKey('main');
+
+        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => $this->get('security.context_listener.0'), 2 => $e, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $this->get('security.authentication.manager'), $this->get('security.authentication.session_strategy'), $a, 'main', $f, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($c, $a, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $d), array('use_forward' => false, 'check_path' => '/login_check', 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $d, $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE), NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '54e29cc771b9c', $d), 5 => $this->get('security.access_listener')), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $a, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($c, $a, '/login', false), NULL, NULL, $d));
     }
 
     /**
@@ -7627,7 +7634,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSonata_User_EditableRoleBuilderService()
     {
-        return $this->services['sonata.user.editable_role_builder'] = new \Sonata\UserBundle\Security\EditableRolesBuilder($this->get('security.context'), $this->get('sonata.admin.pool'), array('ROLE_ADMIN' => array(0 => 'ROLE_USER'), 'ROLE_SUPER_ADMIN' => array(0 => 'ROLE_SUPER_ADMIN'), 'SONATA' => array(0 => 'ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT', 1 => 'ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT')));
+        return $this->services['sonata.user.editable_role_builder'] = new \Sonata\UserBundle\Security\EditableRolesBuilder($this->get('security.context'), $this->get('sonata.admin.pool'), array('ROLE_ADMIN' => array(0 => 'ROLE_USER', 1 => 'ROLE_SONATA_ADMIN'), 'ROLE_SUPER_ADMIN' => array(0 => 'ROLE_ADMIN', 1 => 'ROLE_ALLOWED_TO_SWITCH'), 'SONATA' => array(0 => 'ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT')));
     }
 
     /**
@@ -7654,19 +7661,6 @@ class appDevDebugProjectContainer extends Container
     protected function getSonata_User_Form_Type_SecurityRolesService()
     {
         return $this->services['sonata.user.form.type.security_roles'] = new \Sonata\UserBundle\Form\Type\SecurityRolesType($this->get('sonata.user.editable_role_builder'));
-    }
-
-    /**
-     * Gets the 'sonata.user.group_manager' service.
-     *
-     * This service is shared.
-     * This method always returns the same instance of the service.
-     *
-     * @return \Sonata\UserBundle\Entity\GroupManager A Sonata\UserBundle\Entity\GroupManager instance.
-     */
-    protected function getSonata_User_GroupManagerService()
-    {
-        return $this->services['sonata.user.group_manager'] = new \Sonata\UserBundle\Entity\GroupManager($this->get('fos_user.entity_manager'), 'Application\\Sonata\\UserBundle\\Entity\\Group');
     }
 
     /**
@@ -8308,7 +8302,7 @@ class appDevDebugProjectContainer extends Container
         $this->services['templating.helper.logout_url'] = $instance = new \Symfony\Bundle\SecurityBundle\Templating\Helper\LogoutUrlHelper($this, $this->get('router'));
 
         $instance->registerListener('admin', '/admin/logout', 'logout', '_csrf_token', NULL);
-        $instance->registerListener('main', '/admin/logout', 'logout', '_csrf_token', NULL);
+        $instance->registerListener('main', '/logout', 'logout', '_csrf_token', NULL);
 
         return $instance;
     }
@@ -9605,8 +9599,8 @@ class appDevDebugProjectContainer extends Container
         $instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/admin/login$'), array(0 => 'IS_AUTHENTICATED_ANONYMOUSLY'), NULL);
         $instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/admin/logout$'), array(0 => 'IS_AUTHENTICATED_ANONYMOUSLY'), NULL);
         $instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/admin/login_check$'), array(0 => 'IS_AUTHENTICATED_ANONYMOUSLY'), NULL);
-        $instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/.*'), array(0 => 'IS_AUTHENTICATED_ANONYMOUSLY'), NULL);
         $instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/admin/'), array(0 => 'ROLE_ADMIN', 1 => 'ROLE_SONATA_ADMIN'), NULL);
+        $instance->add(new \Symfony\Component\HttpFoundation\RequestMatcher('^/.*'), array(0 => 'IS_AUTHENTICATED_ANONYMOUSLY'), NULL);
 
         return $instance;
     }
@@ -9629,7 +9623,7 @@ class appDevDebugProjectContainer extends Container
         $b = $this->get('security.user_checker');
         $c = $this->get('security.encoder_factory');
 
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'admin', $c, true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('54cfe590d37a2'), 2 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'main', $c, true), 3 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('54cfe590d37a2')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'admin', $c, true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('54e29cc771b9c'), 2 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'main', $c, true), 3 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('54e29cc771b9c')), true);
 
         $instance->setEventDispatcher($this->get('debug.event_dispatcher'));
 
@@ -9724,6 +9718,23 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'security.logout.handler.session' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * This service is private.
+     * If you want to be able to request this service from the container directly,
+     * make it public, otherwise you might end up with broken code.
+     *
+     * @return \Symfony\Component\Security\Http\Logout\SessionLogoutHandler A Symfony\Component\Security\Http\Logout\SessionLogoutHandler instance.
+     */
+    protected function getSecurity_Logout_Handler_SessionService()
+    {
+        return $this->services['security.logout.handler.session'] = new \Symfony\Component\Security\Http\Logout\SessionLogoutHandler();
+    }
+
+    /**
      * Gets the 'security.role_hierarchy' service.
      *
      * This service is shared.
@@ -9737,7 +9748,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_RoleHierarchyService()
     {
-        return $this->services['security.role_hierarchy'] = new \Symfony\Component\Security\Core\Role\RoleHierarchy(array('ROLE_ADMIN' => array(0 => 'ROLE_USER'), 'ROLE_SUPER_ADMIN' => array(0 => 'ROLE_SUPER_ADMIN'), 'SONATA' => array(0 => 'ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT', 1 => 'ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT')));
+        return $this->services['security.role_hierarchy'] = new \Symfony\Component\Security\Core\Role\RoleHierarchy(array('ROLE_ADMIN' => array(0 => 'ROLE_USER', 1 => 'ROLE_SONATA_ADMIN'), 'ROLE_SUPER_ADMIN' => array(0 => 'ROLE_ADMIN', 1 => 'ROLE_ALLOWED_TO_SWITCH'), 'SONATA' => array(0 => 'ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT')));
     }
 
     /**
@@ -10372,13 +10383,14 @@ class appDevDebugProjectContainer extends Container
             'security.role_hierarchy.roles' => array(
                 'ROLE_ADMIN' => array(
                     0 => 'ROLE_USER',
+                    1 => 'ROLE_SONATA_ADMIN',
                 ),
                 'ROLE_SUPER_ADMIN' => array(
-                    0 => 'ROLE_SUPER_ADMIN',
+                    0 => 'ROLE_ADMIN',
+                    1 => 'ROLE_ALLOWED_TO_SWITCH',
                 ),
                 'SONATA' => array(
                     0 => 'ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT',
-                    1 => 'ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT',
                 ),
             ),
             'security.acl.permission_granting_strategy.class' => 'Symfony\\Component\\Security\\Acl\\Domain\\PermissionGrantingStrategy',

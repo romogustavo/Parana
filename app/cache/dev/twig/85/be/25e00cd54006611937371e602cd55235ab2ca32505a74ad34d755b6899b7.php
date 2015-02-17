@@ -15,9 +15,12 @@ class __TwigTemplate_85be25e00cd54006611937371e602cd55235ab2ca32505a74ad34d755b6
 
     protected function doDisplay(array $context, array $blocks = array())
     {
+        // line 1
+        echo "
+";
     }
 
-    // line 1
+    // line 2
     public function getrender_groups($__admin__ = null, $__form__ = null, $__groups__ = null, $__has_tab__ = null)
     {
         $context = $this->env->mergeGlobals(array(
@@ -31,93 +34,89 @@ class __TwigTemplate_85be25e00cd54006611937371e602cd55235ab2ca32505a74ad34d755b6
 
         ob_start();
         try {
-            // line 2
-            echo "    ";
+            // line 3
+            echo "
+    ";
+            // line 4
             if ((isset($context["has_tab"]) ? $context["has_tab"] : $this->getContext($context, "has_tab"))) {
                 echo "<div class=\"row\">";
             }
-            // line 3
+            // line 5
             echo "    ";
             $context['_parent'] = (array) $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["groups"]) ? $context["groups"] : $this->getContext($context, "groups")));
             foreach ($context['_seq'] as $context["_key"] => $context["code"]) {
-                // line 4
+                // line 6
                 echo "        ";
                 $context["form_group"] = $this->getAttribute($this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "formgroups", array()), $context["code"], array(), "array");
-                // line 5
+                // line 7
                 echo "        <div class=\"";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["form_group"]) ? $context["form_group"] : $this->getContext($context, "form_group")), "class", array()), "html", null, true);
                 echo "\"> ";
-                // line 6
+                // line 8
                 echo "            <div class=\"box box-success\">
                 <div class=\"box-header\">
                     <h4 class=\"box-title\">
                         ";
-                // line 9
+                // line 11
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "trans", array(0 => $this->getAttribute((isset($context["form_group"]) ? $context["form_group"] : $this->getContext($context, "form_group")), "name", array()), 1 => array(), 2 => $this->getAttribute((isset($context["form_group"]) ? $context["form_group"] : $this->getContext($context, "form_group")), "translation_domain", array())), "method"), "html", null, true);
                 echo "
                     </h4>
                 </div>
                 ";
-                // line 13
+                // line 15
                 echo "                <div class=\"box-body\">
                     <div class=\"sonata-ba-collapsed-fields\">
                         ";
-                // line 15
+                // line 17
                 if (($this->getAttribute((isset($context["form_group"]) ? $context["form_group"] : $this->getContext($context, "form_group")), "description", array()) != false)) {
-                    // line 16
+                    // line 18
                     echo "                            <p>";
                     echo $this->getAttribute((isset($context["form_group"]) ? $context["form_group"] : $this->getContext($context, "form_group")), "description", array());
                     echo "</p>
                         ";
                 }
-                // line 18
+                // line 20
                 echo "
                         ";
-                // line 19
+                // line 21
                 $context['_parent'] = (array) $context;
                 $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["form_group"]) ? $context["form_group"] : $this->getContext($context, "form_group")), "fields", array()));
                 $context['_iterated'] = false;
                 foreach ($context['_seq'] as $context["_key"] => $context["field_name"]) {
-                    // line 20
+                    // line 22
                     echo "                            ";
                     if ($this->getAttribute($this->getAttribute((isset($context["admin"]) ? $context["admin"] : null), "formfielddescriptions", array(), "any", false, true), $context["field_name"], array(), "array", true, true)) {
-                        // line 21
-                        echo "                                ";
-                        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), $context["field_name"], array(), "array"), 'row');
+                        // line 23
                         echo "
-                            <em>";
-                        // line 22
-                        echo "0";
-                        echo "</em>
+                                ";
+                        // line 24
+                        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), $context["field_name"], array(), "array"), 'row');
+                        echo " ";
+                        // line 25
+                        echo "
                             ";
                     }
-                    // line 24
-                    echo "                            <em>";
-                    echo twig_escape_filter($this->env, $context["field_name"], "html", null, true);
-                    echo "</em>
+                    // line 27
+                    echo "                        
                         ";
                     $context['_iterated'] = true;
                 }
                 if (!$context['_iterated']) {
-                    // line 26
+                    // line 29
                     echo "                            <em>";
                     echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("message_form_group_empty", array(), "SonataAdminBundle"), "html", null, true);
                     echo "</em>
-                            <pre>";
-                    // line 27
-                    echo twig_escape_filter($this->env, $context["code"], "html", null, true);
-                    echo "</pre>
                         ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['field_name'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 29
+                // line 31
                 echo "                    </div>
                 </div>
                 ";
-                // line 32
+                // line 34
                 echo "            </div>
         </div>
     ";
@@ -125,7 +124,7 @@ class __TwigTemplate_85be25e00cd54006611937371e602cd55235ab2ca32505a74ad34d755b6
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['code'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 35
+            // line 37
             echo "    ";
             if ((isset($context["has_tab"]) ? $context["has_tab"] : $this->getContext($context, "has_tab"))) {
                 echo "</div>";
@@ -151,6 +150,6 @@ class __TwigTemplate_85be25e00cd54006611937371e602cd55235ab2ca32505a74ad34d755b6
 
     public function getDebugInfo()
     {
-        return array (  129 => 35,  121 => 32,  117 => 29,  109 => 27,  104 => 26,  96 => 24,  91 => 22,  86 => 21,  83 => 20,  78 => 19,  75 => 18,  69 => 16,  67 => 15,  63 => 13,  57 => 9,  52 => 6,  48 => 5,  45 => 4,  40 => 3,  35 => 2,  21 => 1,);
+        return array (  128 => 37,  120 => 34,  116 => 31,  107 => 29,  101 => 27,  97 => 25,  94 => 24,  91 => 23,  88 => 22,  83 => 21,  80 => 20,  74 => 18,  72 => 17,  68 => 15,  62 => 11,  57 => 8,  53 => 7,  50 => 6,  45 => 5,  41 => 4,  38 => 3,  24 => 2,  19 => 1,);
     }
 }

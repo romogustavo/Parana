@@ -13,6 +13,9 @@ jms_serializer:
             FOSUserBundle:
                 namespace_prefix: "FOS\\UserBundle"
                 path: "%kernel.root_dir%/serializer/FOSUserBundle"
+# override FOSUser default serialization
+#            - { path: %kernel.root_dir%/../vendor/sonata-project/user-bundle/Sonata/UserBundle/Resources/config/serializer/FOSUserBundle, namespace_prefix: 'FOS\UserBundle' }
+
 # --------------------------------------------------------------------
 #    metadata:
 #        cache: file

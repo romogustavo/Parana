@@ -67,7 +67,7 @@ class __TwigTemplate_549187d309c75c38effc719d8302b182b52f71bb9e4290dc32ed31ac65f
               ";
             // line 16
             if ( !$this->getAttribute((isset($context["admin_pool"]) ? $context["admin_pool"] : $this->getContext($context, "admin_pool")), "getOption", array(0 => "html5_validate"), "method")) {
-                echo "novalidate=\"novalidate\"";
+                echo " novalidate=\"novalidate\"";
             }
             // line 17
             echo "              >
@@ -93,29 +93,29 @@ class __TwigTemplate_549187d309c75c38effc719d8302b182b52f71bb9e4290dc32ed31ac65f
             ";
             // line 28
             $this->displayBlock('sonata_tab_content', $context, $blocks);
-            // line 62
+            // line 65
             echo "
             ";
-            // line 63
-            $this->displayBlock('sonata_post_fieldsets', $context, $blocks);
             // line 66
+            $this->displayBlock('sonata_post_fieldsets', $context, $blocks);
+            // line 69
             echo "
             ";
-            // line 67
+            // line 70
             echo $this->env->getExtension('form')->renderer->searchAndRenderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'rest');
             echo "
 
             ";
-            // line 69
+            // line 72
             $this->displayBlock('formactions', $context, $blocks);
-            // line 111
+            // line 114
             echo "        </form>
     ";
         }
-        // line 113
+        // line 116
         echo "
     ";
-        // line 114
+        // line 117
         echo call_user_func_array($this->env->getFunction('sonata_block_render_event')->getCallable(), array("sonata.admin.edit.form.bottom", array("admin" => (isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "object" => (isset($context["object"]) ? $context["object"] : $this->getContext($context, "object")))));
         echo "
 
@@ -173,11 +173,6 @@ class __TwigTemplate_549187d309c75c38effc719d8302b182b52f71bb9e4290dc32ed31ac65f
                 echo "\" data-toggle=\"tab\"><span class=\"glyphicon glyphicon-exclamation-sign has-errors hide\"></span> ";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "trans", array(0 => $context["name"], 1 => array(), 2 => $this->getAttribute($context["form_tab"], "translation_domain", array())), "method"), "html", null, true);
                 echo "</a></li>
-                                            
-";
-                // line 38
-                echo twig_escape_filter($this->env, $this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "trans", array(0 => $context["name"], 1 => array(), 2 => $this->getAttribute($context["form_tab"], "translation_domain", array())), "method"), "html", null, true);
-                echo "
                                 ";
                 ++$context['loop']['index0'];
                 ++$context['loop']['index'];
@@ -191,11 +186,11 @@ class __TwigTemplate_549187d309c75c38effc719d8302b182b52f71bb9e4290dc32ed31ac65f
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['name'], $context['form_tab'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 40
+            // line 38
             echo "                            </ul>
                             <div class=\"tab-content\">
                                 ";
-            // line 42
+            // line 40
             $context['_parent'] = (array) $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "formtabs", array()));
             $context['loop'] = array(
@@ -212,7 +207,7 @@ class __TwigTemplate_549187d309c75c38effc719d8302b182b52f71bb9e4290dc32ed31ac65f
                 $context['loop']['last'] = 1 === $length;
             }
             foreach ($context['_seq'] as $context["code"] => $context["form_tab"]) {
-                // line 43
+                // line 41
                 echo "                                    <div class=\"tab-pane fade";
                 if ($this->getAttribute($context["loop"], "first", array())) {
                     echo " in active";
@@ -222,6 +217,9 @@ class __TwigTemplate_549187d309c75c38effc719d8302b182b52f71bb9e4290dc32ed31ac65f
                 echo "\">
                                         <div class=\"box-body\">
                                             <div class=\"sonata-ba-collapsed-fields\">
+                                            ";
+                // line 45
+                echo "                                            
                                                 ";
                 // line 46
                 if (($this->getAttribute($context["form_tab"], "description", array()) != false)) {
@@ -233,11 +231,15 @@ class __TwigTemplate_549187d309c75c38effc719d8302b182b52f71bb9e4290dc32ed31ac65f
                 }
                 // line 49
                 echo "
-                                                ";
-                // line 50
+                                            ";
+                // line 51
+                echo "                                                ";
                 echo twig_escape_filter($this->env, $this->getAttribute((isset($context["form_helper"]) ? $context["form_helper"] : $this->getContext($context, "form_helper")), "render_groups", array(0 => (isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), 1 => (isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 2 => $this->getAttribute($context["form_tab"], "groups", array(), "array"), 3 => (isset($context["has_tab"]) ? $context["has_tab"] : $this->getContext($context, "has_tab"))), "method"), "html", null, true);
                 echo "
-                                            </div>
+
+                                            ";
+                // line 54
+                echo "                                            </div>
                                         </div>
                                     </div>
                                 ";
@@ -253,109 +255,109 @@ class __TwigTemplate_549187d309c75c38effc719d8302b182b52f71bb9e4290dc32ed31ac65f
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['code'], $context['form_tab'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 55
+            // line 58
             echo "                            </div>
                         </div>
                     ";
         } else {
-            // line 58
+            // line 61
             echo "                        ";
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["form_helper"]) ? $context["form_helper"] : $this->getContext($context, "form_helper")), "render_groups", array(0 => (isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), 1 => (isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 2 => $this->getAttribute($this->getAttribute($this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "formtabs", array()), "default", array(), "array"), "groups", array()), 3 => (isset($context["has_tab"]) ? $context["has_tab"] : $this->getContext($context, "has_tab"))), "method"), "html", null, true);
             echo "
                     ";
         }
-        // line 60
+        // line 63
         echo "                </div>
             ";
     }
 
-    // line 63
+    // line 66
     public function block_sonata_post_fieldsets($context, array $blocks = array())
     {
-        // line 64
+        // line 67
         echo "                </div>
             ";
     }
 
-    // line 69
+    // line 72
     public function block_formactions($context, array $blocks = array())
     {
-        // line 70
+        // line 73
         echo "                <div class=\"well well-small form-actions\">
                     ";
-        // line 71
+        // line 74
         if ($this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "request", array()), "isxmlhttprequest", array())) {
-            // line 72
+            // line 75
             echo "                        ";
             if ( !(null === $this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "id", array(0 => (isset($context["object"]) ? $context["object"] : $this->getContext($context, "object"))), "method"))) {
-                // line 73
+                // line 76
                 echo "                            <button type=\"submit\" class=\"btn btn-success\" name=\"btn_update\"><i class=\"fa fa-save\"></i> ";
                 echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("btn_update", array(), "SonataAdminBundle"), "html", null, true);
                 echo "</button>
                         ";
             } else {
-                // line 75
+                // line 78
                 echo "                            <button type=\"submit\" class=\"btn btn-success\" name=\"btn_create\"><i class=\"fa fa-plus-circle\"></i> ";
                 echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("btn_create", array(), "SonataAdminBundle"), "html", null, true);
                 echo "</button>
                         ";
             }
-            // line 77
+            // line 80
             echo "                    ";
         } else {
-            // line 78
+            // line 81
             echo "                        ";
             if ($this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "supportsPreviewMode", array())) {
-                // line 79
+                // line 82
                 echo "                            <button class=\"btn btn-info persist-preview\" name=\"btn_preview\" type=\"submit\">
                                 <i class=\"fa fa-eye\"></i>
                                 ";
-                // line 81
+                // line 84
                 echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("btn_preview", array(), "SonataAdminBundle"), "html", null, true);
                 echo "
                             </button>
                         ";
             }
-            // line 84
+            // line 87
             echo "                        ";
             if ( !(null === $this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "id", array(0 => (isset($context["object"]) ? $context["object"] : $this->getContext($context, "object"))), "method"))) {
-                // line 85
+                // line 88
                 echo "                            <button type=\"submit\" class=\"btn btn-success\" name=\"btn_update_and_edit\"><i class=\"fa fa-save\"></i> ";
                 echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("btn_update_and_edit_again", array(), "SonataAdminBundle"), "html", null, true);
                 echo "</button>
 
                             ";
-                // line 87
+                // line 90
                 if (($this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "hasroute", array(0 => "list"), "method") && $this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "isGranted", array(0 => "LIST"), "method"))) {
-                    // line 88
+                    // line 91
                     echo "                                <button type=\"submit\" class=\"btn btn-success\" name=\"btn_update_and_list\"><i class=\"fa fa-save\"></i> <i class=\"fa fa-list\"></i> ";
                     echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("btn_update_and_return_to_list", array(), "SonataAdminBundle"), "html", null, true);
                     echo "</button>
                             ";
                 }
-                // line 90
+                // line 93
                 echo "
                             ";
-                // line 91
+                // line 94
                 if (($this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "hasroute", array(0 => "delete"), "method") && $this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "isGranted", array(0 => "DELETE", 1 => (isset($context["object"]) ? $context["object"] : $this->getContext($context, "object"))), "method"))) {
-                    // line 92
+                    // line 95
                     echo "                                ";
                     echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("delete_or", array(), "SonataAdminBundle"), "html", null, true);
                     echo "
                                 <a class=\"btn btn-danger\" href=\"";
-                    // line 93
+                    // line 96
                     echo twig_escape_filter($this->env, $this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "generateObjectUrl", array(0 => "delete", 1 => (isset($context["object"]) ? $context["object"] : $this->getContext($context, "object"))), "method"), "html", null, true);
                     echo "\"><i class=\"fa fa-minus-circle\"></i> ";
                     echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("link_delete", array(), "SonataAdminBundle"), "html", null, true);
                     echo "</a>
                             ";
                 }
-                // line 95
+                // line 98
                 echo "
                             ";
-                // line 96
+                // line 99
                 if ((($this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "isAclEnabled", array(), "method") && $this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "hasroute", array(0 => "acl"), "method")) && $this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "isGranted", array(0 => "MASTER", 1 => (isset($context["object"]) ? $context["object"] : $this->getContext($context, "object"))), "method"))) {
-                    // line 97
+                    // line 100
                     echo "                                <a class=\"btn btn-info\" href=\"";
                     echo twig_escape_filter($this->env, $this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "generateObjectUrl", array(0 => "acl", 1 => (isset($context["object"]) ? $context["object"] : $this->getContext($context, "object"))), "method"), "html", null, true);
                     echo "\"><i class=\"fa fa-users\"></i> ";
@@ -363,37 +365,37 @@ class __TwigTemplate_549187d309c75c38effc719d8302b182b52f71bb9e4290dc32ed31ac65f
                     echo "</a>
                             ";
                 }
-                // line 99
+                // line 102
                 echo "                        ";
             } else {
-                // line 100
+                // line 103
                 echo "                            ";
                 if (($this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "hasroute", array(0 => "edit"), "method") && $this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "isGranted", array(0 => "EDIT"), "method"))) {
-                    // line 101
+                    // line 104
                     echo "                                <button class=\"btn btn-success\" type=\"submit\" name=\"btn_create_and_edit\"><i class=\"fa fa-save\"></i> ";
                     echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("btn_create_and_edit_again", array(), "SonataAdminBundle"), "html", null, true);
                     echo "</button>
                             ";
                 }
-                // line 103
+                // line 106
                 echo "                            ";
                 if (($this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "hasroute", array(0 => "list"), "method") && $this->getAttribute((isset($context["admin"]) ? $context["admin"] : $this->getContext($context, "admin")), "isGranted", array(0 => "LIST"), "method"))) {
-                    // line 104
+                    // line 107
                     echo "                                <button type=\"submit\" class=\"btn btn-success\" name=\"btn_create_and_list\"><i class=\"fa fa-save\"></i> <i class=\"fa fa-list\"></i> ";
                     echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("btn_create_and_return_to_list", array(), "SonataAdminBundle"), "html", null, true);
                     echo "</button>
                             ";
                 }
-                // line 106
+                // line 109
                 echo "                            <button class=\"btn btn-success\" type=\"submit\" name=\"btn_create_and_create\"><i class=\"fa fa-plus-circle\"></i> ";
                 echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("btn_create_and_create_a_new_one", array(), "SonataAdminBundle"), "html", null, true);
                 echo "</button>
                         ";
             }
-            // line 108
+            // line 111
             echo "                    ";
         }
-        // line 109
+        // line 112
         echo "                </div>
             ";
     }
@@ -405,6 +407,6 @@ class __TwigTemplate_549187d309c75c38effc719d8302b182b52f71bb9e4290dc32ed31ac65f
 
     public function getDebugInfo()
     {
-        return array (  397 => 109,  394 => 108,  388 => 106,  382 => 104,  379 => 103,  373 => 101,  370 => 100,  367 => 99,  359 => 97,  357 => 96,  354 => 95,  347 => 93,  342 => 92,  340 => 91,  337 => 90,  331 => 88,  329 => 87,  323 => 85,  320 => 84,  314 => 81,  310 => 79,  307 => 78,  304 => 77,  298 => 75,  292 => 73,  289 => 72,  287 => 71,  284 => 70,  281 => 69,  276 => 64,  273 => 63,  268 => 60,  262 => 58,  257 => 55,  238 => 50,  235 => 49,  229 => 47,  227 => 46,  216 => 43,  199 => 42,  195 => 40,  179 => 38,  167 => 36,  150 => 35,  146 => 33,  144 => 32,  140 => 30,  137 => 29,  134 => 28,  129 => 25,  126 => 24,  119 => 114,  116 => 113,  112 => 111,  110 => 69,  105 => 67,  102 => 66,  100 => 63,  97 => 62,  95 => 28,  92 => 27,  90 => 24,  87 => 23,  81 => 20,  78 => 19,  76 => 18,  73 => 17,  69 => 16,  62 => 14,  59 => 13,  55 => 12,  52 => 11,  46 => 8,  43 => 7,  41 => 6,  38 => 5,  36 => 4,  30 => 2,  24 => 1,);
+        return array (  399 => 112,  396 => 111,  390 => 109,  384 => 107,  381 => 106,  375 => 104,  372 => 103,  369 => 102,  361 => 100,  359 => 99,  356 => 98,  349 => 96,  344 => 95,  342 => 94,  339 => 93,  333 => 91,  331 => 90,  325 => 88,  322 => 87,  316 => 84,  312 => 82,  309 => 81,  306 => 80,  300 => 78,  294 => 76,  291 => 75,  289 => 74,  286 => 73,  283 => 72,  278 => 67,  275 => 66,  270 => 63,  264 => 61,  259 => 58,  242 => 54,  236 => 51,  233 => 49,  227 => 47,  225 => 46,  222 => 45,  211 => 41,  194 => 40,  190 => 38,  167 => 36,  150 => 35,  146 => 33,  144 => 32,  140 => 30,  137 => 29,  134 => 28,  129 => 25,  126 => 24,  119 => 117,  116 => 116,  112 => 114,  110 => 72,  105 => 70,  102 => 69,  100 => 66,  97 => 65,  95 => 28,  92 => 27,  90 => 24,  87 => 23,  81 => 20,  78 => 19,  76 => 18,  73 => 17,  69 => 16,  62 => 14,  59 => 13,  55 => 12,  52 => 11,  46 => 8,  43 => 7,  41 => 6,  38 => 5,  36 => 4,  30 => 2,  24 => 1,);
     }
 }

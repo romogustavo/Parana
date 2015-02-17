@@ -87,12 +87,20 @@ doctrine:
                     # ...
 #                    ApplicationSonataUserBundle: ~
 #                    SonataUserBundle: ~
+
+#                    FOSUserBundle: ~ # If SonataUserBundle extends it
+
 #                    SonataNotificationBundle: ~
 #                    ApplicationSonataNotificationBundle: ~
+
 #                    SonataMediaBundle: ~
 #                    ApplicationSonataMediaBundle: ~
+
 #                    ApplicationSonataPageBundle: ~
 #                    SonataPageBundle: ~
+
+#                    ApplicationSonataTimelineBundle: ~
+#                    SonataTimelineBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:

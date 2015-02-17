@@ -352,7 +352,12 @@ class CRUDController extends Controller
         /** @var $form \Symfony\Component\Form\Form */
         $form = $this->admin->getForm();
         $form->setData($object);
-
+/*
+        echo "<pre>";
+        print_r($this->getRestMethod());
+        echo "</pre>";
+        exit;
+*/
         if ($this->getRestMethod() == 'POST') {
             $form->submit($this->get('request'));
 
