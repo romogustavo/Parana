@@ -13,7 +13,7 @@
               role="form"
               action="{{ admin.generateUrl(url, {'id': admin.id(object), 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}" {{ form_enctype(form) }}
               method="POST"
-              {% if not admin_pool.getOption('html5_validate') %}novalidate="novalidate"{% endif %}
+              {% if not admin_pool.getOption('html5_validate') %} novalidate="novalidate"{% endif %}
               >
             {% if form.vars.errors|length > 0 %}
                 <div class="sonata-ba-form-error">
@@ -33,7 +33,7 @@
                         <div class="nav-tabs-custom">
                             <ul class="nav nav-tabs" role="tablist">
                                 {% for name, form_tab in admin.formtabs %}
-                                    <li{% if loop.index == 1 %} class="active"{% endif %}><a href="#tab_{{ loop.index }}" data-toggle="tab">{{ admin.trans(name, {}, form_tab.translation_domain) }}</a></li>
+                                    <li{% if loop.index == 1 %} class="active"{% endif %}><a href="#tab_{{ loop.index }}" data-toggle="tab"><span class="glyphicon glyphicon-exclamation-sign has-errors hide"></span> {{ admin.trans(name, {}, form_tab.translation_domain) }}</a></li>
                                 {% endfor %}
                             </ul>
                             <div class="tab-content">
@@ -41,11 +41,16 @@
                                     <div class="tab-pane fade{% if loop.first %} in active{% endif %}" id="tab_{{ loop.index }}">
                                         <div class="box-body">
                                             <div class="sonata-ba-collapsed-fields">
+                                            {# Tocar aca! #}
+                                            
                                                 {% if form_tab.description != false %}
                                                     <p>{{ form_tab.description|raw }}</p>
                                                 {% endif %}
 
+                                            {# Contenido de los bloque como Status, Grupos y Roles en el edit de usuarios #}
                                                 {{ form_helper.render_groups(admin, form, form_tab['groups'], has_tab) }}
+
+                                            {# Hasta aca! #}
                                             </div>
                                         </div>
                                     </div>

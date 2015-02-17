@@ -53,22 +53,23 @@ class SexoAdmin extends Admin
      * con los valores del formulario.
      * 
      */
- 
+ /*
     public function prePersist($sexo) {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $sexo->setIdUserCreatedAt($user->getId());
         $sexo->setCreatedAt(new \DateTime());
     }
-
+*/
      /*
      * Método que se ejecuta antes de realizar una actualización.
      * Recibe como parámetro una entidad; en este caso de tipo Sexo
      * con los valores del formulario.
      * 
      */
-    public function preUpdate($sexo) {
+/*    public function preUpdate($sexo) {
         $user = $this->getConfigurationPool()->getContainer()->get('security.context')->getToken()->getUser();
         $sexo->setIdUserUpdatedAt($user->getId());
         $sexo->setUpdatedAt(new \DateTime());
     }
+    */
 }

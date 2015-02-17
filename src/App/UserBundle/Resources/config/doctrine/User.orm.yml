@@ -1,4 +1,3 @@
-# src/Acme/UserBundle/Resources/config/doctrine/User.orm.yml
 App\UserBundle\Entity\User:
     type:  entity
     table: fos_user
@@ -10,7 +9,7 @@ App\UserBundle\Entity\User:
     fields:
         name:
             type: string
-            #length: '255'
+            length: '100'
             nullable: true
-            NotBlank: (message="Please enter your name.", groups={"Registration", "Profile"})
-            length: (min=3,max="255",minMessage="The name is too short.",maxMessage="The name is too long.",groups={"Registration", "Profile"})
+#            NotBlank: (message="Please enter your name.", groups={"Registration", "Profile"})
+#            length: (min=3,max="255",minMessage="The name is too short.",maxMessage="The name is too long.",groups={"Registration", "Profile"})
