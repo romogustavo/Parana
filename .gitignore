@@ -54,6 +54,8 @@ web/bundles/*
 web/css/*
 web/js/*
 web/uploads/*
+vendor/*
+
 # -- Composer -----------------------------------------
 composer.phar
 
